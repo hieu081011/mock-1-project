@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/ContextProvider";
+import './result.scss'
 const { Title } = Typography;
 const columns = [
   {
@@ -48,16 +49,22 @@ const ResultPage = () => {
     navigate("/user");
   };
   return (
-    <div>
-      <Title level={2}>Here is your result</Title>
-      <Title level={2}>
-        {correct}/{total}
-      </Title>
-      <Button onClick={() => setShowReview(!showReview)}>
-        Review your questions
-      </Button>
-      <Button onClick={handleReplay}>Replay</Button>
-      {showReview && <Table columns={columns} dataSource={reviewData} />}
+    <div className="Result">
+      <div className="final-score">
+        <Title level={2}>Here is your result</Title>
+        <Title level={2}>
+          {correct}/{total}
+        </Title>
+        <div className="buttons">
+
+          <Button shape='round' onClick={() => setShowReview(!showReview)}>
+            Review your questions
+          </Button>
+          <Button shape='round' onClick={handleReplay}>Replay</Button>
+        </div>
+
+      </div>
+      {showReview && <Table pagination={{ defaultPageSize: 4 }} columns={columns} dataSource={reviewData} />}
     </div>
   );
 };

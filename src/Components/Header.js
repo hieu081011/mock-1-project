@@ -4,32 +4,45 @@ import { useAuth } from "../context/ContextProvider";
 import { UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../api";
+import { LogoutOutlined } from '@ant-design/icons'
+import './header.scss'
 const { Title } = Typography;
 const Header = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth, setAuth, setQuizData } = useAuth();
   const handleLogout = async () => {
-    logout(auth.tokens.refresh.token);
+    try {
+      await logout(auth.tokens.refresh.token);
+    } catch (error) {
+
+    }
+    setQuizData({})
+    setAuth({});
     localStorage.clear();
 
-    setAuth({});
   };
+  if (!auth.user) {
+    return (
+      <></>
+    )
+  }
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+
       }}
+      className="Header"
     >
       <Title level={2}>QUIZ APP</Title>
       {auth?.user && (
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          <div>
-            <Title level={4}>Welcom {auth.user.username}</Title>
-            <Title level={4}>Role: {auth.user.role}</Title>
-          </div>
           <Avatar size="large" icon={<UserOutlined />} />
-          <Button onClick={handleLogout}>Log Out</Button>
+
+          <h2>Welcom {auth.user.username}</h2>
+
+
+
+
+          <Button danger icon={<LogoutOutlined />} onClick={handleLogout}>Log Out</Button>
         </div>
       )}
     </div>

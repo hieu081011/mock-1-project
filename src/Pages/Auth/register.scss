@@ -1,0 +1,20 @@
+.Register{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    & >div{
+        padding: 20px;
+        background-color: white;
+        width: 400px;
+        border-radius: 10px;
+        & >form{
+            & .error-message{
+                margin: -10px 0px 10px 0px;
+                display: flex;
+                justify-content: center;
+                color: red;
+            }
+        }
+    }
+}

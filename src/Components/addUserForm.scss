@@ -1,0 +1,13 @@
+.AddUserForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    & >form{
+        width: 500px;
+        border: 3px solid black;
+        border-radius: 10px;
+        padding: 20px 20px 0 20px;
+        background-color:blanchedalmond;
+    }
+}

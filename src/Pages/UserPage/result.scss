@@ -1,0 +1,44 @@
+.Result{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    & .final-score{
+        padding: 30px;
+        width: 300px;
+        background-color: antiquewhite;
+        border: 2px solid black;
+        border-radius: 10px;
+        & >h2{
+            margin: 10px 0;
+            text-align: center;
+        }
+        & .buttons{
+            gap:15px;
+            display: flex;
+            flex-direction: column;
+            & .ant-btn{
+                
+                box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;            }
+        }
+    }
+    & .ant-table-wrapper{
+        width: 800px;
+        margin-top: 20px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        padding: 30px 20px 0px 20px;
+        border-radius: 10px;
+        & .ant-table{
+            background-color:bisque;
+            border-radius: 2px;
+
+        }
+        & .ant-table-thead{
+           
+            & >tr{
+                background-color: black;
+            }
+        }
+    }
+}

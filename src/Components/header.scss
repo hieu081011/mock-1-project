@@ -1,0 +1,13 @@
+.Header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+    & h2{
+        margin-bottom: 0px;
+    }
+    & .ant-btn{
+        border-radius: 5px;
+        background-color: bisque;
+    }
+}

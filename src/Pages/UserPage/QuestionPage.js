@@ -2,6 +2,7 @@ import Question from "../../Components/Question";
 import { useAuth } from "../../context/ContextProvider";
 import { useState } from "react";
 import SpinFC from "antd/lib/spin";
+import './questionPage.scss'
 const QuestionPage = () => {
   const {
     quizData: { currentQues, totalQues, questions },
@@ -10,7 +11,7 @@ const QuestionPage = () => {
   return (
     <>
       {loading ? (
-        <div>
+        <div className="spin-wrapper">
           <SpinFC />
         </div>
       ) : (

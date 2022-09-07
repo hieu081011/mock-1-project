@@ -3,3 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.App{
+  min-height: 100vh;
+    
+    background-image:url('https://i2.wp.com/files.123freevectors.com/wp-content/original/111421-light-color-blurred-background-vector.jpg?w=800&q=95');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

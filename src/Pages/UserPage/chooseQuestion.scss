@@ -1,0 +1,22 @@
+.ChooseQuestion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    & >div{
+        padding: 40px;
+        border-radius: 10px;
+        border: 2px solid black;
+        width: 350px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        & >h2{
+            text-align: center;
+        }
+        & .ant-input-number{
+            width: 100%;
+        }
+    }
+}

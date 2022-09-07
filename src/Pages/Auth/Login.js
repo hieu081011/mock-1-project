@@ -4,8 +4,12 @@ import "antd/dist/antd.css";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api";
 import { useAuth } from "../../context/ContextProvider";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
+import './login.scss'
+import { ls } from "../../api/encyption";
 
+
+const { Text } = Typography
 const Login = () => {
   const navigate = useNavigate();
   const { auth, setAuth } = useAuth();
@@ -14,9 +18,9 @@ const Login = () => {
     try {
       const { data } = await login(values);
       console.log(data);
-      localStorage.setItem("access_token", data.tokens.access.token);
-      localStorage.setItem("auth", JSON.stringify(data));
-      localStorage.setItem("refresh_token", data.tokens.refresh.token);
+      ls.set("access_token", data.tokens.access.token);
+      ls.set("auth", JSON.stringify(data));
+      ls.set("refresh_token", data.tokens.refresh.token);
       setAuth(data);
     } catch (error) {
       const { response } = error;
@@ -30,61 +34,68 @@ const Login = () => {
     return <Navigate to={`/${auth.user.role}`} />;
   }
   return (
-    <div>
-      <Form
-        name="login"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 7 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-          <Typography.Title level={2}>Login</Typography.Title>
-        </Form.Item>
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+    <div className="Login-page">
+      <div>
+        <Form
+          name="login"
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 16 }}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Typography.Title level={5}>{error}</Typography.Title>
-        </Form.Item>
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Login
-          </Button>
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button
-            onClick={() => {
-              navigate("/register");
-            }}
+          <Form.Item wrapperCol={{ offset: 9, span: 16 }}>
+            <Typography.Title className='title' level={2}>Login</Typography.Title>
+          </Form.Item>
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: "Please input your username!" }]}
           >
-            Register
-          </Button>
-        </Form.Item>
-      </Form>
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
+            <Input.Password />
+          </Form.Item>
+          {
+            error && <div className="error-message">{error}</div>
+          }
+
+
+
+          <Form.Item wrapperCol={{ offset: 6, span: 12 }}>
+            <Button type="primary" htmlType="submit" block danger shape="round">
+              Login
+            </Button>
+          </Form.Item>
+          <Form.Item labelCol={{ offset: 6 }} wrapperCol={{ offset: 0, span: 12 }} label="Create an account">
+
+            <Link style={{ color: 'red' }} to='/register'>
+              Sign up
+            </Link>
+          </Form.Item>
+
+
+          {/* <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+            <Button
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Register
+            </Button>
+          </Form.Item> */}
+
+
+        </Form>
+
+      </div>
     </div>
   );
 };

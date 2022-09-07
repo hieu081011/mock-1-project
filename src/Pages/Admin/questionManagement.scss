@@ -1,0 +1,31 @@
+.QuestionsManagement{
+    width: 100%;
+    padding: 20px;
+    & .header{
+        & >h2{
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            border: 2px solid black;
+            width: fit-content;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    }
+    & .ant-table-wrapper{
+        
+        margin-top: 20px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        padding: 30px 20px 0px 20px;
+        border-radius: 10px;
+        & .ant-table{
+            background-color:blanchedalmond;
+            border-radius: 2px;
+
+        }
+        & .ant-table-thead{
+           
+            & >tr{
+                background-color: black;
+            }
+        }
+    }
+}

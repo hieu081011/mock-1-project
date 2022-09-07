@@ -4,15 +4,15 @@ import { Typography, Button, Modal } from "antd";
 import { useAuth } from "../context/ContextProvider";
 import { submitQuestions } from "../api";
 import { useNavigate } from "react-router-dom";
+import './question.scss'
+import { ls } from "../api/encyption";
 const { Title } = Typography;
 const Question = ({ currentQues, totalQues, questions, setLoading }) => {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { setQuizData, quizData } = useAuth();
   const answers = ["answer1", "answer2", "answer3", "answer4"];
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
+
   const handleChooseQuestion = (value) => {
     setQuizData({
       ...quizData,
@@ -43,54 +43,64 @@ const Question = ({ currentQues, totalQues, questions, setLoading }) => {
     }
   };
   return (
-    <div>
-      <button onClick={() => setIsModalOpen(!isModalOpen)}>change modal</button>
+    <div className="Question">
       <Title level={2}>
         Question {currentQues}/{totalQues}
       </Title>
-      <Title level={3}>{questions[currentQues - 1].question}</Title>
-      {answers.map((answer) => (
-        <Button
-          key={answer}
-          block
-          size="middle"
-          type={
-            questions[currentQues - 1]?.checkedQuestion === `${answer}`
-              ? "primary"
-              : "default"
-          }
-          onClick={() => handleChooseQuestion(answer)}
-        >
-          {questions[currentQues - 1][answer]}
-        </Button>
-      ))}
+      <div className="question">
 
-      <Button
-        disabled={currentQues === 1}
-        onClick={() =>
-          setQuizData({ ...quizData, currentQues: currentQues - 1 })
-        }
-      >
-        Prev
-      </Button>
-      <Button
-        onClick={() => {
-          if (currentQues !== totalQues) {
-            localStorage.setItem(
-              "quizData",
-              JSON.stringify({ ...quizData, currentQues: currentQues + 1 })
-            );
-            setQuizData({ ...quizData, currentQues: currentQues + 1 });
-          } else {
-            handleSubmit()
+        <Title level={3}>{questions[currentQues - 1].question}</Title>
+      </div>
+      <div className="answers">
+
+        {answers.map((answer) => (
+          <Button
+            key={answer}
+            block
+            shape="round"
+            size="large"
+            type={
+              questions[currentQues - 1]?.checkedQuestion === `${answer}`
+                ? "danger"
+                : "default"
+            }
+            onClick={() => handleChooseQuestion(answer)}
+          >
+            {questions[currentQues - 1][answer]}
+          </Button>
+        ))}
+      </div>
+      <div className="buttons">
+
+        <Button
+          shape="round"
+          size="large"
+          disabled={currentQues === 1}
+          onClick={() =>
+            setQuizData({ ...quizData, currentQues: currentQues - 1 })
           }
-        }}
-      >
-        Next
-      </Button>
-      <Modal title='Basic Modal' visibility={isModalOpen} onCancel={handleCancel} onOk={handleSubmit}>
-        <p>Do you want to submit questions?</p>
-      </Modal>
+        >
+          Prev
+        </Button>
+        <Button
+          shape="round"
+          size="large"
+          onClick={() => {
+            if (currentQues !== totalQues) {
+              ls.set(
+                "quizData",
+                JSON.stringify({ ...quizData, currentQues: currentQues + 1 })
+              );
+              setQuizData({ ...quizData, currentQues: currentQues + 1 });
+            } else {
+              handleSubmit()
+            }
+          }}
+        >
+          Next
+        </Button>
+      </div>
+
     </div>
   );
 };
